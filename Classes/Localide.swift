@@ -54,7 +54,7 @@ public final class Localide {
     /**
      Prompt user for their preferred maps app, and launch it with directions to location
      - parameter location: Latitude & Longitude of the direction's to location
-     - parameter remembePreference: Whether to remember the user's preference for future uses or not. (note: preference is whenever the list of available apps change. ex. user installs a new map app.)
+     - parameter remembePreference: Whether to remember the user's preference for future uses or not. (note: preference is reset whenever the list of available apps change. ex. user installs a new map app.)
      - parameter usingASubsetOfApps: Handpicked subset of apps to use, use this parameter if you'd like to exclude some apps. (note: If none of which are available, Apple Maps will be fell back on.)
      - parameter completion: Called after attempting to launch app whether it being from previous preference or currently selected preference.
      */
