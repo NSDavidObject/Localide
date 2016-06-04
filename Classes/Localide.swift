@@ -33,12 +33,12 @@ public final class Localide {
      - Apple Maps
      - Installed 3rd party apps which are supported by Localide and included in the QuerySchemes
     */
-    lazy var availableMapApps: [LocalideMapApp] = Localide.private_availableMapApps()
+    public lazy var availableMapApps: [LocalideMapApp] = Localide.private_availableMapApps()
 
     /**
      Reset the previously set user's map app preference
      */
-    func resetUserPreferences() {
+    public func resetUserPreferences() {
         NSUserDefaults.resetMapAppPreferences()
     }
 
@@ -47,7 +47,7 @@ public final class Localide {
      - parameter location: Latitude & Longitude of the directions's TO location
      - returns: Whether the launch of the application was successfull
      */
-    func launchNativeAppleMapsAppForDirections(toLocation location: LocalideGeoLocation) -> Bool {
+    public func launchNativeAppleMapsAppForDirections(toLocation location: LocalideGeoLocation) -> Bool {
         return LocalideMapApp.AppleMaps.launchAppWithDirections(toLocation: location)
     }
 
@@ -58,7 +58,7 @@ public final class Localide {
      - parameter usingASubsetOfApps: Handpicked subset of apps to use, use this parameter if you'd like to exclude some apps. (note: If none of which are available, Apple Maps will be fell back on.)
      - parameter completion: Called after attempting to launch app whether it being from previous preference or currently selected preference.
      */
-    func promptForDirections(toLocation location: LocalideGeoLocation, remembePreference remember: Bool = false, usingASubsetOfApps apps: [LocalideMapApp]? = nil, onCompletion completion: LocalideUsageCompletion?) {
+    public func promptForDirections(toLocation location: LocalideGeoLocation, remembePreference remember: Bool = false, usingASubsetOfApps apps: [LocalideMapApp]? = nil, onCompletion completion: LocalideUsageCompletion?) {
         
         var appChoices = LocalideMapApp.AllMapApps//self.availableMapApps
         if let apps = apps {
