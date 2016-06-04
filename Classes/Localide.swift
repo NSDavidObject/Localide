@@ -60,7 +60,7 @@ public final class Localide {
      */
     public func promptForDirections(toLocation location: LocalideGeoLocation, remembePreference remember: Bool = false, usingASubsetOfApps apps: [LocalideMapApp]? = nil, onCompletion completion: LocalideUsageCompletion?) {
         
-        var appChoices = LocalideMapApp.AllMapApps//self.availableMapApps
+        var appChoices = self.availableMapApps
         if let apps = apps {
             appChoices = apps.filter({ self.availableMapApps.contains($0) })
             if appChoices.count == 0 {
