@@ -20,7 +20,7 @@ extension UIApplication: UIApplicationProtocol {}
 
 public final class Localide {
 
-    static let sharedManager: Localide = Localide()
+    public static let sharedManager: Localide = Localide()
     internal var applicationProtocol: UIApplicationProtocol = UIApplication.sharedApplication()
 
     // Unavailable initializer, use sharedManager.
