@@ -13,18 +13,15 @@
 		0C31840E1CFD1A6E00F16B00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C31840D1CFD1A6E00F16B00 /* Assets.xcassets */; };
 		0C3184111CFD1A6E00F16B00 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C31840F1CFD1A6E00F16B00 /* LaunchScreen.storyboard */; };
 		0C31841C1CFD1A6E00F16B00 /* LocalideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C31841B1CFD1A6E00F16B00 /* LocalideTests.swift */; };
-		0C3184271CFD1A6E00F16B00 /* LocalideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3184261CFD1A6E00F16B00 /* LocalideUITests.swift */; };
+		0CAFF60B1D028D6600EECA8D /* Localide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAFF6061D028D6600EECA8D /* Localide.swift */; };
+		0CAFF60C1D028D6600EECA8D /* LocalideAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAFF6071D028D6600EECA8D /* LocalideAlertAction.swift */; };
+		0CAFF60D1D028D6600EECA8D /* LocalideMapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAFF6081D028D6600EECA8D /* LocalideMapApp.swift */; };
+		0CAFF60E1D028D6600EECA8D /* NSUserDetauls+Localide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAFF6091D028D6600EECA8D /* NSUserDetauls+Localide.swift */; };
+		0CAFF60F1D028D6600EECA8D /* UIApplication+Localide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAFF60A1D028D6600EECA8D /* UIApplication+Localide.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		0C3184181CFD1A6E00F16B00 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0C3183FB1CFD1A6E00F16B00 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0C3184021CFD1A6E00F16B00;
-			remoteInfo = Localide;
-		};
-		0C3184231CFD1A6E00F16B00 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0C3183FB1CFD1A6E00F16B00 /* Project object */;
 			proxyType = 1;
@@ -44,9 +41,11 @@
 		0C3184171CFD1A6E00F16B00 /* LocalideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LocalideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C31841B1CFD1A6E00F16B00 /* LocalideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalideTests.swift; sourceTree = "<group>"; };
 		0C31841D1CFD1A6E00F16B00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0C3184221CFD1A6E00F16B00 /* LocalideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LocalideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C3184261CFD1A6E00F16B00 /* LocalideUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalideUITests.swift; sourceTree = "<group>"; };
-		0C3184281CFD1A6E00F16B00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0CAFF6061D028D6600EECA8D /* Localide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Localide.swift; path = Classes/Localide.swift; sourceTree = "<group>"; };
+		0CAFF6071D028D6600EECA8D /* LocalideAlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocalideAlertAction.swift; path = Classes/LocalideAlertAction.swift; sourceTree = "<group>"; };
+		0CAFF6081D028D6600EECA8D /* LocalideMapApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocalideMapApp.swift; path = Classes/LocalideMapApp.swift; sourceTree = "<group>"; };
+		0CAFF6091D028D6600EECA8D /* NSUserDetauls+Localide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSUserDetauls+Localide.swift"; path = "Classes/NSUserDetauls+Localide.swift"; sourceTree = "<group>"; };
+		0CAFF60A1D028D6600EECA8D /* UIApplication+Localide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIApplication+Localide.swift"; path = "Classes/UIApplication+Localide.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,13 +63,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0C31841F1CFD1A6E00F16B00 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -79,7 +71,6 @@
 			children = (
 				0C3184051CFD1A6E00F16B00 /* Localide */,
 				0C31841A1CFD1A6E00F16B00 /* LocalideTests */,
-				0C3184251CFD1A6E00F16B00 /* LocalideUITests */,
 				0C3184041CFD1A6E00F16B00 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -89,7 +80,6 @@
 			children = (
 				0C3184031CFD1A6E00F16B00 /* Localide.app */,
 				0C3184171CFD1A6E00F16B00 /* LocalideTests.xctest */,
-				0C3184221CFD1A6E00F16B00 /* LocalideUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -97,6 +87,7 @@
 		0C3184051CFD1A6E00F16B00 /* Localide */ = {
 			isa = PBXGroup;
 			children = (
+				0CAFF6051D028D4100EECA8D /* Classes */,
 				0C3184061CFD1A6E00F16B00 /* AppDelegate.swift */,
 				0C3184081CFD1A6E00F16B00 /* ViewController.swift */,
 				0C31840A1CFD1A6E00F16B00 /* Main.storyboard */,
@@ -116,13 +107,17 @@
 			path = LocalideTests;
 			sourceTree = "<group>";
 		};
-		0C3184251CFD1A6E00F16B00 /* LocalideUITests */ = {
+		0CAFF6051D028D4100EECA8D /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				0C3184261CFD1A6E00F16B00 /* LocalideUITests.swift */,
-				0C3184281CFD1A6E00F16B00 /* Info.plist */,
+				0CAFF6061D028D6600EECA8D /* Localide.swift */,
+				0CAFF6081D028D6600EECA8D /* LocalideMapApp.swift */,
+				0CAFF6071D028D6600EECA8D /* LocalideAlertAction.swift */,
+				0CAFF6091D028D6600EECA8D /* NSUserDetauls+Localide.swift */,
+				0CAFF60A1D028D6600EECA8D /* UIApplication+Localide.swift */,
 			);
-			path = LocalideUITests;
+			name = Classes;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,24 +158,6 @@
 			productReference = 0C3184171CFD1A6E00F16B00 /* LocalideTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		0C3184211CFD1A6E00F16B00 /* LocalideUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0C3184311CFD1A6E00F16B00 /* Build configuration list for PBXNativeTarget "LocalideUITests" */;
-			buildPhases = (
-				0C31841E1CFD1A6E00F16B00 /* Sources */,
-				0C31841F1CFD1A6E00F16B00 /* Frameworks */,
-				0C3184201CFD1A6E00F16B00 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0C3184241CFD1A6E00F16B00 /* PBXTargetDependency */,
-			);
-			name = LocalideUITests;
-			productName = LocalideUITests;
-			productReference = 0C3184221CFD1A6E00F16B00 /* LocalideUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -195,10 +172,6 @@
 						CreatedOnToolsVersion = 7.3.1;
 					};
 					0C3184161CFD1A6E00F16B00 = {
-						CreatedOnToolsVersion = 7.3.1;
-						TestTargetID = 0C3184021CFD1A6E00F16B00;
-					};
-					0C3184211CFD1A6E00F16B00 = {
 						CreatedOnToolsVersion = 7.3.1;
 						TestTargetID = 0C3184021CFD1A6E00F16B00;
 					};
@@ -219,7 +192,6 @@
 			targets = (
 				0C3184021CFD1A6E00F16B00 /* Localide */,
 				0C3184161CFD1A6E00F16B00 /* LocalideTests */,
-				0C3184211CFD1A6E00F16B00 /* LocalideUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -242,13 +214,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0C3184201CFD1A6E00F16B00 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -258,6 +223,11 @@
 			files = (
 				0C3184091CFD1A6E00F16B00 /* ViewController.swift in Sources */,
 				0C3184071CFD1A6E00F16B00 /* AppDelegate.swift in Sources */,
+				0CAFF60E1D028D6600EECA8D /* NSUserDetauls+Localide.swift in Sources */,
+				0CAFF60F1D028D6600EECA8D /* UIApplication+Localide.swift in Sources */,
+				0CAFF60B1D028D6600EECA8D /* Localide.swift in Sources */,
+				0CAFF60C1D028D6600EECA8D /* LocalideAlertAction.swift in Sources */,
+				0CAFF60D1D028D6600EECA8D /* LocalideMapApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,14 +239,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0C31841E1CFD1A6E00F16B00 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0C3184271CFD1A6E00F16B00 /* LocalideUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -284,11 +246,6 @@
 			isa = PBXTargetDependency;
 			target = 0C3184021CFD1A6E00F16B00 /* Localide */;
 			targetProxy = 0C3184181CFD1A6E00F16B00 /* PBXContainerItemProxy */;
-		};
-		0C3184241CFD1A6E00F16B00 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0C3184021CFD1A6E00F16B00 /* Localide */;
-			targetProxy = 0C3184231CFD1A6E00F16B00 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -443,28 +400,6 @@
 			};
 			name = Release;
 		};
-		0C3184321CFD1A6E00F16B00 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = LocalideUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.davidelsonbaty.LocalideUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = Localide;
-			};
-			name = Debug;
-		};
-		0C3184331CFD1A6E00F16B00 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = LocalideUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.davidelsonbaty.LocalideUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = Localide;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -484,6 +419,7 @@
 				0C31842D1CFD1A6E00F16B00 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0C31842E1CFD1A6E00F16B00 /* Build configuration list for PBXNativeTarget "LocalideTests" */ = {
 			isa = XCConfigurationList;
@@ -492,14 +428,7 @@
 				0C3184301CFD1A6E00F16B00 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		0C3184311CFD1A6E00F16B00 /* Build configuration list for PBXNativeTarget "LocalideUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0C3184321CFD1A6E00F16B00 /* Debug */,
-				0C3184331CFD1A6E00F16B00 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

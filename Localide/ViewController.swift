@@ -7,12 +7,22 @@
 //
 
 import UIKit
+import MapKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var promptSwitch: UISwitch!
+    @IBOutlet weak var rememberSwitch: UISwitch!
+    @IBOutlet weak var appChoiceSegmentControl: UISegmentedControl!
+
+    var switchOptions = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        self.setupGestureRecognizers()
+        self.configureConfigurationControls()
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +30,64 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func setupGestureRecognizers() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapMapView(withTapGesture:)))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        tapGestureRecognizer.cancelsTouchesInView = true
+        self.mapView.addGestureRecognizer(tapGestureRecognizer)
+    }
 
+    func didTapMapView(withTapGesture gesture: UITapGestureRecognizer) {
+        let gestureLocation = gesture.locationInView(self.mapView)
+        let gestureCoordinate = self.mapView.convertPoint(gestureLocation, toCoordinateFromView: self.mapView)
+        self.handleLocalideAction(withCoordinate: gestureCoordinate)
+    }
+
+    func handleLocalideAction(withCoordinate coordinate: CLLocationCoordinate2D) {
+
+        let location = LocalideGeoLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        if self.promptSwitch.on {
+            if Localide.sharedManager.availableMapApps.count == 1 {
+                print("Only found 1 available app, opening it directly")
+            }
+            Localide.sharedManager.promptForDirections(toLocation: location, remembePreference: self.rememberSwitch.on, onCompletion: { (usedApp, fromMemory, openedLinkSuccessfully) in
+                if fromMemory {
+                    print("Localide used \(usedApp) from user's previous choice.")
+                } else {
+                    print("Localide " + (openedLinkSuccessfully ? "opened" : "failed to open") + " \(usedApp)")
+                }
+            })
+        } else {
+
+            let app = LocalideMapApp.AllMapApps[self.appChoiceSegmentControl.selectedSegmentIndex]
+            if app.canOpenApp() {
+                app.launchAppWithDirections(toLocation: location)
+            } else {
+                print("Unable to launch \(app.appName) ")
+            }
+        }
+    }
 }
 
+// MARK: Configurations
+extension ViewController {
+    func configureConfigurationControls() {
+        self.appChoiceSegmentControl.removeAllSegments()
+        for (idx, app) in LocalideMapApp.AllMapApps.enumerate() {
+            self.appChoiceSegmentControl.insertSegmentWithTitle(app.appName.componentsSeparatedByString(" ")[0], atIndex: idx, animated: true)
+        }
+        self.appChoiceSegmentControl.selectedSegmentIndex = 0
+    }
+    @IBAction func didChangeSelectedSegmentValue(sender: AnyObject) {
+//        guard let segmentedControl = sender as? UISegmentedControl else { return }
+    }
+    @IBAction func didChangePromptSwitchValue(sender: AnyObject) {
+        guard let switchControl = sender as? UISwitch else { return }
+
+        self.rememberSwitch.enabled = switchControl.on
+        self.appChoiceSegmentControl.enabled = !switchControl.on
+    }
+    @IBAction func didChangeRememberSwitchValue(sender: AnyObject) {
+//        guard let switchControl = sender as? UISwitch else { return }
+    }
+}
