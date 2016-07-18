@@ -29,7 +29,7 @@ Firstly insert all Third Party Apps' URL schemes to your **Info.plist**:
 
 ##### Giving the user the option to use their favorite installed app
 ```swift
-let location = LocalideGeoLocation(latitude: 37.776692, longitude: 0.0)
+let location = CLLocationCoordinate2D(latitude: 37.776692, longitude: 0.0)
 Localide.sharedManager.promptForDirections(toLocation: location,  { (usedApp, fromMemory, openedLinkSuccessfully) in
     print("The user picked \(usedApp.name)")
 }
@@ -43,14 +43,14 @@ Localide.sharedManager.promptForDirections(toLocation: location,  { (usedApp, fr
 ##### Specific App
 You can launch the Apple Maps app with directions to location by using:
 ```swift
-let location = LocalideGeoLocation(latitude: 37.776692, longitude: 0.0)
+let location = CLLocationCoordinate2D(latitude: 37.776692, longitude: 0.0)
 Localide.sharedManager.launchNativeAppleMapsAppForDirections(toLocation: location)
 ```
 
 For other apps:
 ```swift
 if LocalideMapApp.GoogleMaps.canOpenApp() {
-    let location = LocalideGeoLocation(latitude: 37.776692, longitude: 0.0)
+    let location = CLLocationCoordinate2D(latitude: 37.776692, longitude: 0.0)
     LocalideMapApp.GoogleMaps.launchAppWithDirections(toLocation: location)
 }
 ```
