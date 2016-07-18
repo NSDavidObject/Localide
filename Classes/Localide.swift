@@ -7,8 +7,8 @@
 //
 
 import UIKit
+import CoreLocation
 
-public typealias LocalideGeoLocation = (latitude: Double, longitude: Double)
 public typealias LocalideUsageCompletion = (usedApp: LocalideMapApp, fromMemory: Bool, openedLinkSuccessfully: Bool) -> Void
 
 internal protocol UIApplicationProtocol {
@@ -47,7 +47,7 @@ public final class Localide {
      - parameter location: Latitude & Longitude of the directions's TO location
      - returns: Whether the launch of the application was successfull
      */
-    public func launchNativeAppleMapsAppForDirections(toLocation location: LocalideGeoLocation) -> Bool {
+    public func launchNativeAppleMapsAppForDirections(toLocation location: CLLocationCoordinate2D) -> Bool {
         return LocalideMapApp.AppleMaps.launchAppWithDirections(toLocation: location)
     }
 
@@ -58,7 +58,7 @@ public final class Localide {
      - parameter usingASubsetOfApps: Handpicked subset of apps to use, use this parameter if you'd like to exclude some apps. (note: If none of which are available, Apple Maps will be fell back on.)
      - parameter completion: Called after attempting to launch app whether it being from previous preference or currently selected preference.
      */
-    public func promptForDirections(toLocation location: LocalideGeoLocation, remembePreference remember: Bool = false, usingASubsetOfApps apps: [LocalideMapApp]? = nil, onCompletion completion: LocalideUsageCompletion?) {
+    public func promptForDirections(toLocation location: CLLocationCoordinate2D, remembePreference remember: Bool = false, usingASubsetOfApps apps: [LocalideMapApp]? = nil, onCompletion completion: LocalideUsageCompletion?) {
         
         var appChoices = self.availableMapApps
         if let apps = apps {
@@ -92,7 +92,7 @@ extension Localide {
         })
     }
 
-    private func private_launchApp(app: LocalideMapApp, withDirectionsToLocation location: LocalideGeoLocation, fromMemory: Bool, completion: LocalideUsageCompletion?) {
+    private func private_launchApp(app: LocalideMapApp, withDirectionsToLocation location: CLLocationCoordinate2D, fromMemory: Bool, completion: LocalideUsageCompletion?) {
         let didLaunchMapApp = app.launchAppWithDirections(toLocation: location)
         completion?(usedApp: app, fromMemory: fromMemory, openedLinkSuccessfully: didLaunchMapApp)
     }

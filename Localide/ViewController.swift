@@ -45,18 +45,31 @@ class ViewController: UIViewController {
 
     func handleLocalideAction(withCoordinate coordinate: CLLocationCoordinate2D) {
 
-        let location = LocalideGeoLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let location = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
         if self.promptSwitch.on {
+
+            let promptFunction = {
+                Localide.sharedManager.promptForDirections(toLocation: location, remembePreference: self.rememberSwitch.on, onCompletion: { (usedApp, fromMemory, openedLinkSuccessfully) in
+                    if fromMemory {
+                        print("Localide used \(usedApp) from user's previous choice.")
+                    } else {
+                        print("Localide " + (openedLinkSuccessfully ? "opened" : "failed to open") + " \(usedApp)")
+                    }
+                })
+            }
+
             if Localide.sharedManager.availableMapApps.count == 1 {
                 print("Only found 1 available app, opening it directly")
+                let alertController = UIAlertController(title: "Only 1 App Found", message: "There's only one app found, Localide skips the prompt when there's only one valid option. Would you like to proceed?", preferredStyle: .Alert)
+                alertController.addAction(UIAlertAction(title: "Proceed", style: .Default, handler: { _ in
+                    promptFunction()
+                }))
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+                self.presentViewController(alertController, animated: true, completion: nil)
+            } else {
+                promptFunction()
             }
-            Localide.sharedManager.promptForDirections(toLocation: location, remembePreference: self.rememberSwitch.on, onCompletion: { (usedApp, fromMemory, openedLinkSuccessfully) in
-                if fromMemory {
-                    print("Localide used \(usedApp) from user's previous choice.")
-                } else {
-                    print("Localide " + (openedLinkSuccessfully ? "opened" : "failed to open") + " \(usedApp)")
-                }
-            })
+
         } else {
 
             let app = LocalideMapApp.AllMapApps[self.appChoiceSegmentControl.selectedSegmentIndex]

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 public enum LocalideMapApp: Int {
     case AppleMaps = 10
@@ -58,14 +59,14 @@ public extension LocalideMapApp {
      - parameter location: Latitude & Longitude of the directions's TO location
      - returns: Whether the launch of the application was successfull
      */
-    public func launchAppWithDirections(toLocation location: LocalideGeoLocation) -> Bool {
+    public func launchAppWithDirections(toLocation location: CLLocationCoordinate2D) -> Bool {
         return LocalideMapApp.private_launchAppWithUrlString(self.private_urlStringForDirections(location))
     }
 }
 
 // MARK: - Private Helpers
 private extension LocalideMapApp {
-    private func private_urlStringForDirections(location: LocalideGeoLocation) -> String {
+    private func private_urlStringForDirections(location: CLLocationCoordinate2D) -> String {
         return String(format: LocalideMapApp.urlFormats[self]!, arguments: [location.latitude, location.longitude])
     }
 }
