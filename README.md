@@ -36,7 +36,7 @@ Localide.sharedManager.promptForDirections(toLocation: location,  { (usedApp, fr
 ```
 
 ###### Other Options 
-- You may also choose to have Localide remember the user's choice for future directions by using the ```remembePreference ``` argument.
+- You may also choose to have Localide remember the user's choice for future directions by using the ```rememberPreference ``` argument.
 - You may also choose to restrict the user from using some applications by using the ```usingASubsetOfApps``` argument.
 
 
