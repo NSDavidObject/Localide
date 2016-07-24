@@ -49,7 +49,7 @@ class ViewController: UIViewController {
         if self.promptSwitch.on {
 
             let promptFunction = {
-                Localide.sharedManager.promptForDirections(toLocation: location, remembePreference: self.rememberSwitch.on, onCompletion: { (usedApp, fromMemory, openedLinkSuccessfully) in
+                Localide.sharedManager.promptForDirections(toLocation: location, rememberPreference: self.rememberSwitch.on, onCompletion: { (usedApp, fromMemory, openedLinkSuccessfully) in
                     if fromMemory {
                         print("Localide used \(usedApp) from user's previous choice.")
                     } else {
