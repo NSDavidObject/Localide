@@ -71,12 +71,14 @@ class ViewController: UIViewController {
             }
 
         } else {
-
+            
             let app = LocalideMapApp.AllMapApps[self.appChoiceSegmentControl.selectedSegmentIndex]
             if app.canOpenApp() {
                 app.launchAppWithDirections(toLocation: location)
             } else {
-                print("Unable to launch \(app.appName) ")
+                let alertController = UIAlertController(title: "App is not available", message: "\(app.appName) is not available on this device.", preferredStyle: .Alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+                self.presentViewController(alertController, animated: true, completion: nil)
             }
         }
     }
