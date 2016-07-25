@@ -23,7 +23,7 @@ Firstly insert all Third Party Apps' URL schemes to your **Info.plist**:
  - comgooglemaps ([Google Maps App](https://itunes.apple.com/us/app/google-maps-real-time-navigation/id585027354?mt=8))
  - navigon ([Navigon App](https://itunes.apple.com/us/app/navigon-usa/id384680007?mt=8))
  - transit ([Transit App](https://itunes.apple.com/us/app/transit-app-real-time-tracker/id498151501?mt=8))
- - yande navigator ([Yandex Navigator](https://itunes.apple.com/us/app/yandex.navigator/id474500851?mt=8))
+ - yandexnavi ([Yandex Navigator](https://itunes.apple.com/us/app/yandex.navigator/id474500851?mt=8))
 
 **Info.plist should [look like this](https://s32.postimg.org/3ldnwpz1h/Screen_Shot_2016_07_25_at_6_16_20_PM.png "Info.plist should look like this.").**
 
