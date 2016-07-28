@@ -7,12 +7,13 @@
 //
 
 import XCTest
+import CoreLocation
 @testable import Localide
 
 class LocalideTests: XCTestCase {
 
     private let applicationProtocolTest = UIApplicationProtocolTest()
-    let locationZero = LocalideGeoLocation(latitude: 0.0, longitude: 0.0)
+    let locationZero = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
 
     override func setUp() {
         super.setUp()
@@ -26,7 +27,7 @@ class LocalideTests: XCTestCase {
 
     func testLaunchNativeAppleMapsApp() {
 
-        let location = LocalideGeoLocation(latitude: 0.0, longitude: 0.0)
+        let location = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
         XCTAssertTrue(Localide.sharedManager.launchNativeAppleMapsAppForDirections(toLocation: location))
         XCTAssertEqual(applicationProtocolTest.lastOpenedUrl, private_testDidLaunchApplication(.AppleMaps))
     }
@@ -80,7 +81,7 @@ class LocalideTests: XCTestCase {
         Localide.sharedManager.resetUserPreferences()
 
         var lastSelectedApp: LocalideMapApp?
-        Localide.sharedManager.promptForDirections(toLocation: locationZero, remembePreference: true) { (usedApp, fromMemory, openedLinkSuccessfully) in
+        Localide.sharedManager.promptForDirections(toLocation: locationZero, rememberPreference: true) { (usedApp, fromMemory, openedLinkSuccessfully) in
             XCTAssertEqual(lastSelectedApp, usedApp)
             XCTAssertFalse(fromMemory)
             XCTAssertTrue(openedLinkSuccessfully)
@@ -97,7 +98,7 @@ class LocalideTests: XCTestCase {
         private_resetViewHierarchy()
 
         let appFromMemory: LocalideMapApp = actions!.last!.mockMapApp!
-        Localide.sharedManager.promptForDirections(toLocation: locationZero, remembePreference: true) { (usedApp, fromMemory, openedLinkSuccessfully) in
+        Localide.sharedManager.promptForDirections(toLocation: locationZero, rememberPreference: true) { (usedApp, fromMemory, openedLinkSuccessfully) in
             XCTAssertEqual(appFromMemory, usedApp)
             XCTAssertTrue(fromMemory)
             XCTAssertTrue(openedLinkSuccessfully)
@@ -112,7 +113,7 @@ class LocalideTests: XCTestCase {
         Localide.sharedManager.resetUserPreferences()
 
         var lastSelectedApp: LocalideMapApp?
-        Localide.sharedManager.promptForDirections(toLocation: locationZero, remembePreference: true) { (usedApp, fromMemory, openedLinkSuccessfully) in
+        Localide.sharedManager.promptForDirections(toLocation: locationZero, rememberPreference: true) { (usedApp, fromMemory, openedLinkSuccessfully) in
             XCTAssertEqual(lastSelectedApp, usedApp)
             XCTAssertFalse(fromMemory)
             XCTAssertTrue(openedLinkSuccessfully)
@@ -128,7 +129,7 @@ class LocalideTests: XCTestCase {
 
         private_resetViewHierarchy()
 
-        Localide.sharedManager.promptForDirections(toLocation: locationZero, remembePreference: true, usingASubsetOfApps: [.GoogleMaps, .Waze]) { (usedApp, fromMemory, openedLinkSuccessfully) in
+        Localide.sharedManager.promptForDirections(toLocation: locationZero, rememberPreference: true, usingASubsetOfApps: [.GoogleMaps, .Waze]) { (usedApp, fromMemory, openedLinkSuccessfully) in
             XCTAssertEqual(lastSelectedApp, usedApp)
             XCTAssertFalse(fromMemory)
             XCTAssertTrue(openedLinkSuccessfully)
@@ -156,7 +157,7 @@ class LocalideTests: XCTestCase {
         }
         return localideActions as? [LocalideAlertAction]
     }
-    func private_testDidLaunchApplication(app: LocalideMapApp, toLocation location: LocalideGeoLocation = (0,0)) -> String {
+    func private_testDidLaunchApplication(app: LocalideMapApp, toLocation location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)) -> String {
         return String(format: LocalideMapAppTestHelper.urlFormats[app]!, arguments: [location.latitude, location.longitude])
     }
 }
