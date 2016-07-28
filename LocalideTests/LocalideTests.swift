@@ -170,7 +170,8 @@ private class LocalideMapAppTestHelper {
         LocalideMapApp.GoogleMaps : "comgooglemaps://",
         LocalideMapApp.Navigon : "navigon://",
         LocalideMapApp.TransitApp : "transit://",
-        LocalideMapApp.Waze : "waze://"
+        LocalideMapApp.Waze : "waze://",
+        LocalideMapApp.YandexNavigator : "yandexnavi://"
     ]
     static let urlFormats: [LocalideMapApp: String] = [
         LocalideMapApp.AppleMaps : "http://maps.apple.com/?daddr=%f,%f",
@@ -178,7 +179,8 @@ private class LocalideMapAppTestHelper {
         LocalideMapApp.GoogleMaps : "comgooglemaps://?daddr=%f,%f",
         LocalideMapApp.Navigon : "navigon://coordinate/Destination/%f/%f",
         LocalideMapApp.TransitApp : "transit://routes?q=%f,%f",
-        LocalideMapApp.Waze : "waze://?ll=%f,%f"
+        LocalideMapApp.Waze : "waze://?ll=%f,%f",
+        LocalideMapApp.YandexNavigator : "yandexnavi://build_route_on_map?lat_to=%f&lon_to=%f"
     ]
 }
 
@@ -192,4 +194,3 @@ private class UIApplicationProtocolTest: UIApplicationProtocol {
         return canOpenURL(url)
     }
 }
-
