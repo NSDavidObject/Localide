@@ -27,6 +27,7 @@
 		<string>navigon</string>
 		<string>transit</string>
 		<string>waze</string>
+		<string>yandexnavi</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

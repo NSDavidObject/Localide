@@ -16,6 +16,7 @@ public enum LocalideMapApp: Int {
     case Navigon = 40
     case TransitApp = 50
     case Waze = 60
+    case YandexNavigator = 70
 
     public var appName: String {
         switch self {
@@ -31,10 +32,12 @@ public enum LocalideMapApp: Int {
             return "Transit App"
         case Waze:
             return "Waze"
+        case YandexNavigator:
+            return "Yandex Navigator"
         }
     }
 
-    internal static let AllMapApps: [LocalideMapApp] = [AppleMaps, Citymapper, GoogleMaps, Navigon, TransitApp, Waze]
+    internal static let AllMapApps: [LocalideMapApp] = [AppleMaps, Citymapper, GoogleMaps, Navigon, TransitApp, Waze, YandexNavigator]
 }
 
 // MARK: - Public Helpers
@@ -80,7 +83,8 @@ private extension LocalideMapApp {
         LocalideMapApp.GoogleMaps : "comgooglemaps://",
         LocalideMapApp.Navigon : "navigon://",
         LocalideMapApp.TransitApp : "transit://",
-        LocalideMapApp.Waze : "waze://"
+        LocalideMapApp.Waze : "waze://",
+        LocalideMapApp.YandexNavigator : "yandexnavi://"
     ]
 
     private static let urlFormats: [LocalideMapApp: String] = [
@@ -89,7 +93,8 @@ private extension LocalideMapApp {
         LocalideMapApp.GoogleMaps : "comgooglemaps://?daddr=%f,%f",
         LocalideMapApp.Navigon : "navigon://coordinate/Destination/%f/%f",
         LocalideMapApp.TransitApp : "transit://routes?q=%f,%f",
-        LocalideMapApp.Waze : "waze://?ll=%f,%f"
+        LocalideMapApp.Waze : "waze://?ll=%f,%f",
+        LocalideMapApp.YandexNavigator : "yandexnavi://build_route_on_map?lat_to=%f&lon_to=%f"
     ]
 
     private static func private_canOpenUrl(url: NSURL) -> Bool {
