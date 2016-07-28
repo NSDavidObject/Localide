@@ -22,10 +22,11 @@ Firstly insert all Third Party Apps' URL schemes to your **Info.plist**:
  - citymapper ([Citymapper App](https://itunes.apple.com/us/app/citymapper-real-time-transit/id469463298?mt=8))
  - comgooglemaps ([Google Maps App](https://itunes.apple.com/us/app/google-maps-real-time-navigation/id585027354?mt=8))
  - navigon ([Navigon App](https://itunes.apple.com/us/app/navigon-usa/id384680007?mt=8))
- - transit ([Transit App](https://itunes.apple.com/us/app/transit-app-real-time-tracker/id498151501?mt=8))
+ - transit ([Transit App](https://itunes.apple.com/us/app/transit-app-real-time-tracker/id498151501?mt=8)) 
+ - waze ([Waze App](https://itunes.apple.com/us/app/waze-gps-navigation-maps-social/id323229106?mt=8))
  - yandexnavi ([Yandex Navigator](https://itunes.apple.com/us/app/yandex.navigator/id474500851?mt=8))
 
-**Info.plist should [look like this](https://s32.postimg.org/3ldnwpz1h/Screen_Shot_2016_07_25_at_6_16_20_PM.png "Info.plist should look like this.").**
+**Info.plist should [look like this](http://s33.postimg.org/srpqbka3z/Screen_Shot_2016_05_31_at_6_28_56_PM.png "Info.plist should look like this.").**
 
 ##### Giving the user the option to use their favorite installed app
 ```swift
