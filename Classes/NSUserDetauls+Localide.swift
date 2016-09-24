@@ -8,10 +8,10 @@
 
 import Foundation
 
-internal extension NSUserDefaults {
+internal extension UserDefaults {
 
-    private static let PreferredMapAppKey = "Localide.Preferred-Map-App"
-    private static let MapAppChoicesKey = "Localide.Installed-Map-Apps"
+    fileprivate static let PreferredMapAppKey = "Localide.Preferred-Map-App"
+    fileprivate static let MapAppChoicesKey = "Localide.Installed-Map-Apps"
 
     internal class func didSetPrefferedMapApp(fromChoices choices: [LocalideMapApp]) -> Bool {
         return (self.preferredMapApp(fromChoices: choices) != nil)
@@ -19,26 +19,26 @@ internal extension NSUserDefaults {
 
     internal class func preferredMapApp(fromChoices choices: [LocalideMapApp]) -> LocalideMapApp? {
         // Ensure a preferred map app is set
-        guard let preferredMapAppIndex = NSUserDefaults.standardUserDefaults().objectForKey(NSUserDefaults.PreferredMapAppKey) as? Int else { return nil }
+        guard let preferredMapAppIndex = UserDefaults.standard.object(forKey: UserDefaults.PreferredMapAppKey) as? Int else { return nil }
         // Ensure there were no changes to the previous state of installed apps.
-        guard self.private_previousMapAppChoices() == choices else { return nil }
+        guard previousMapAppChoices() == choices else { return nil }
 
         return LocalideMapApp(rawValue: preferredMapAppIndex)
     }
 
-    internal class func setPreferredMapApp(app: LocalideMapApp, fromMapAppChoices choices: [LocalideMapApp]) {
+    internal class func setPreferredMapApp(_ app: LocalideMapApp, fromMapAppChoices choices: [LocalideMapApp]) {
         // Save the preferred map app
-        NSUserDefaults.standardUserDefaults().setInteger(app.rawValue, forKey: NSUserDefaults.PreferredMapAppKey)
+        UserDefaults.standard.set(app.rawValue, forKey: UserDefaults.PreferredMapAppKey)
         // Save the current state of map app choices
-        NSUserDefaults.standardUserDefaults().setObject(choices.map({ $0.rawValue }), forKey: NSUserDefaults.MapAppChoicesKey)
+        UserDefaults.standard.set(choices.map({ $0.rawValue }), forKey: UserDefaults.MapAppChoicesKey)
     }
 
     internal class func resetMapAppPreferences() {
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(NSUserDefaults.PreferredMapAppKey)
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(NSUserDefaults.MapAppChoicesKey)
+        UserDefaults.standard.removeObject(forKey: UserDefaults.PreferredMapAppKey)
+        UserDefaults.standard.removeObject(forKey: UserDefaults.MapAppChoicesKey)
     }
 
-    private class func private_previousMapAppChoices() -> [LocalideMapApp] {
-        return (NSUserDefaults.standardUserDefaults().objectForKey(NSUserDefaults.MapAppChoicesKey) as! [Int]).map({ return LocalideMapApp(rawValue: $0)! })
+    fileprivate class func previousMapAppChoices() -> [LocalideMapApp] {
+        return (UserDefaults.standard.object(forKey: UserDefaults.MapAppChoicesKey) as! [Int]).map({ return LocalideMapApp(rawValue: $0)! })
     }
 }

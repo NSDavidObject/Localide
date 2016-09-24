@@ -10,14 +10,14 @@ import UIKit
 
 // Special thanks to @dianz (http://stackoverflow.com/a/30858591)
 internal extension UIApplication {
-    internal class func topViewController(fromRoot root: UIViewController? = UIApplication.sharedApplication().keyWindow?.rootViewController) -> UIViewController? {
+    internal class func topViewController(fromRoot root: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
 
         if let navigationController = root as? UINavigationController {
             return topViewController(fromRoot: navigationController.visibleViewController)
         }
 
         if let tabBarController = root as? UITabBarController,
-            selectedViewController = tabBarController.selectedViewController {
+            let selectedViewController = tabBarController.selectedViewController {
             return topViewController(fromRoot: selectedViewController)
         }
 

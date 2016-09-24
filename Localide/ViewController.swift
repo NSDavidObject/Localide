@@ -16,8 +16,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var rememberSwitch: UISwitch!
     @IBOutlet weak var appChoiceSegmentControl: UISegmentedControl!
 
-    var switchOptions = []
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,18 +36,18 @@ class ViewController: UIViewController {
     }
 
     func didTapMapView(withTapGesture gesture: UITapGestureRecognizer) {
-        let gestureLocation = gesture.locationInView(self.mapView)
-        let gestureCoordinate = self.mapView.convertPoint(gestureLocation, toCoordinateFromView: self.mapView)
+        let gestureLocation = gesture.location(in: self.mapView)
+        let gestureCoordinate = self.mapView.convert(gestureLocation, toCoordinateFrom: self.mapView)
         self.handleLocalideAction(withCoordinate: gestureCoordinate)
     }
 
     func handleLocalideAction(withCoordinate coordinate: CLLocationCoordinate2D) {
 
         let location = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        if self.promptSwitch.on {
+        if self.promptSwitch.isOn {
 
             let promptFunction = {
-                Localide.sharedManager.promptForDirections(toLocation: location, rememberPreference: self.rememberSwitch.on, onCompletion: { (usedApp, fromMemory, openedLinkSuccessfully) in
+                Localide.sharedManager.promptForDirections(toLocation: location, rememberPreference: self.rememberSwitch.isOn, onCompletion: { (usedApp, fromMemory, openedLinkSuccessfully) in
                     if fromMemory {
                         print("Localide used \(usedApp) from user's previous choice.")
                     } else {
@@ -60,12 +58,12 @@ class ViewController: UIViewController {
 
             if Localide.sharedManager.availableMapApps.count == 1 {
                 print("Only found 1 available app, opening it directly")
-                let alertController = UIAlertController(title: "Only 1 App Found", message: "There's only one app found, Localide skips the prompt when there's only one valid option. Would you like to proceed?", preferredStyle: .Alert)
-                alertController.addAction(UIAlertAction(title: "Proceed", style: .Default, handler: { _ in
+                let alertController = UIAlertController(title: "Only 1 App Found", message: "There's only one app found, Localide skips the prompt when there's only one valid option. Would you like to proceed?", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Proceed", style: .default, handler: { _ in
                     promptFunction()
                 }))
-                alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
             } else {
                 promptFunction()
             }
@@ -76,9 +74,9 @@ class ViewController: UIViewController {
             if app.canOpenApp() {
                 app.launchAppWithDirections(toLocation: location)
             } else {
-                let alertController = UIAlertController(title: "App is not available", message: "\(app.appName) is not available on this device.", preferredStyle: .Alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
+                let alertController = UIAlertController(title: "App is not available", message: "\(app.appName) is not available on this device.", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
             }
         }
     }
@@ -88,21 +86,21 @@ class ViewController: UIViewController {
 extension ViewController {
     func configureConfigurationControls() {
         self.appChoiceSegmentControl.removeAllSegments()
-        for (idx, app) in LocalideMapApp.AllMapApps.enumerate() {
-            self.appChoiceSegmentControl.insertSegmentWithTitle(app.appName.componentsSeparatedByString(" ")[0], atIndex: idx, animated: true)
+        for (idx, app) in LocalideMapApp.AllMapApps.enumerated() {
+            self.appChoiceSegmentControl.insertSegment(withTitle: app.appName.components(separatedBy: " ")[0], at: idx, animated: true)
         }
         self.appChoiceSegmentControl.selectedSegmentIndex = 0
     }
-    @IBAction func didChangeSelectedSegmentValue(sender: AnyObject) {
+    @IBAction func didChangeSelectedSegmentValue(_ sender: AnyObject) {
 //        guard let segmentedControl = sender as? UISegmentedControl else { return }
     }
-    @IBAction func didChangePromptSwitchValue(sender: AnyObject) {
+    @IBAction func didChangePromptSwitchValue(_ sender: AnyObject) {
         guard let switchControl = sender as? UISwitch else { return }
 
-        self.rememberSwitch.enabled = switchControl.on
-        self.appChoiceSegmentControl.enabled = !switchControl.on
+        self.rememberSwitch.isEnabled = switchControl.isOn
+        self.appChoiceSegmentControl.isEnabled = !switchControl.isOn
     }
-    @IBAction func didChangeRememberSwitchValue(sender: AnyObject) {
+    @IBAction func didChangeRememberSwitchValue(_ sender: AnyObject) {
 //        guard let switchControl = sender as? UISwitch else { return }
     }
 }

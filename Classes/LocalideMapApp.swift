@@ -10,34 +10,34 @@ import UIKit
 import CoreLocation
 
 public enum LocalideMapApp: Int {
-    case AppleMaps = 10
-    case Citymapper = 20
-    case GoogleMaps = 30
-    case Navigon = 40
-    case TransitApp = 50
-    case Waze = 60
-    case YandexNavigator = 70
+    case appleMaps = 10
+    case citymapper = 20
+    case googleMaps = 30
+    case navigon = 40
+    case transitApp = 50
+    case waze = 60
+    case yandexNavigator = 70
 
     public var appName: String {
         switch self {
-        case AppleMaps:
+        case .appleMaps:
             return "Apple Maps"
-        case Citymapper:
+        case .citymapper:
             return "Citymapper"
-        case GoogleMaps:
+        case .googleMaps:
             return "Google Maps"
-        case Navigon:
+        case .navigon:
             return "Navigon"
-        case TransitApp:
+        case .transitApp:
             return "Transit App"
-        case Waze:
+        case .waze:
             return "Waze"
-        case YandexNavigator:
+        case .yandexNavigator:
             return "Yandex Navigator"
         }
     }
 
-    internal static let AllMapApps: [LocalideMapApp] = [AppleMaps, Citymapper, GoogleMaps, Navigon, TransitApp, Waze, YandexNavigator]
+    internal static let AllMapApps: [LocalideMapApp] = [appleMaps, citymapper, googleMaps, navigon, transitApp, waze, yandexNavigator]
 }
 
 // MARK: - Public Helpers
@@ -47,29 +47,29 @@ public extension LocalideMapApp {
      - returns: Whether it is possible to launch the app.
      */
     public func canOpenApp() -> Bool {
-        guard let url = NSURL(string: LocalideMapApp.prefixes[self]!) else { return false }
-        return LocalideMapApp.private_canOpenUrl(url)
+        guard let url = URL(string: LocalideMapApp.prefixes[self]!) else { return false }
+        return LocalideMapApp.canOpenUrl(url)
     }
     /**
      Launch app
      - returns: Whether the launch of the application was successfull
      */
     public func launchApp() -> Bool {
-        return LocalideMapApp.private_launchAppWithUrlString(LocalideMapApp.urlFormats[self]!)
+        return LocalideMapApp.launchAppWithUrlString(LocalideMapApp.urlFormats[self]!)
     }
     /**
      Launch app with directions to location
      - parameter location: Latitude & Longitude of the directions's TO location
      - returns: Whether the launch of the application was successfull
      */
-    public func launchAppWithDirections(toLocation location: CLLocationCoordinate2D) -> Bool {
-        return LocalideMapApp.private_launchAppWithUrlString(self.private_urlStringForDirections(location))
+    @discardableResult public func launchAppWithDirections(toLocation location: CLLocationCoordinate2D) -> Bool {
+        return LocalideMapApp.launchAppWithUrlString(urlStringForDirections(toLocation: location))
     }
 }
 
 // MARK: - Private Helpers
 private extension LocalideMapApp {
-    private func private_urlStringForDirections(location: CLLocationCoordinate2D) -> String {
+    func urlStringForDirections(toLocation location: CLLocationCoordinate2D) -> String {
         return String(format: LocalideMapApp.urlFormats[self]!, arguments: [location.latitude, location.longitude])
     }
 }
@@ -77,31 +77,32 @@ private extension LocalideMapApp {
 // MARK: - Private Static Helpers
 private extension LocalideMapApp {
 
-    private static let prefixes: [LocalideMapApp: String] = [
-        LocalideMapApp.AppleMaps : "http://maps.apple.com/",
-        LocalideMapApp.Citymapper : "citymapper://",
-        LocalideMapApp.GoogleMaps : "comgooglemaps://",
-        LocalideMapApp.Navigon : "navigon://",
-        LocalideMapApp.TransitApp : "transit://",
-        LocalideMapApp.Waze : "waze://",
-        LocalideMapApp.YandexNavigator : "yandexnavi://"
+    static let prefixes: [LocalideMapApp: String] = [
+        LocalideMapApp.appleMaps : "http://maps.apple.com/",
+        LocalideMapApp.citymapper : "citymapper://",
+        LocalideMapApp.googleMaps : "comgooglemaps://",
+        LocalideMapApp.navigon : "navigon://",
+        LocalideMapApp.transitApp : "transit://",
+        LocalideMapApp.waze : "waze://",
+        LocalideMapApp.yandexNavigator : "yandexnavi://"
     ]
 
-    private static let urlFormats: [LocalideMapApp: String] = [
-        LocalideMapApp.AppleMaps : "http://maps.apple.com/?daddr=%f,%f",
-        LocalideMapApp.Citymapper : "citymapper://endcoord=%f,%f",
-        LocalideMapApp.GoogleMaps : "comgooglemaps://?daddr=%f,%f",
-        LocalideMapApp.Navigon : "navigon://coordinate/Destination/%f/%f",
-        LocalideMapApp.TransitApp : "transit://routes?q=%f,%f",
-        LocalideMapApp.Waze : "waze://?ll=%f,%f",
-        LocalideMapApp.YandexNavigator : "yandexnavi://build_route_on_map?lat_to=%f&lon_to=%f"
+    static let urlFormats: [LocalideMapApp: String] = [
+        LocalideMapApp.appleMaps : "http://maps.apple.com/?daddr=%f,%f",
+        LocalideMapApp.citymapper : "citymapper://endcoord=%f,%f",
+        LocalideMapApp.googleMaps : "comgooglemaps://?daddr=%f,%f",
+        LocalideMapApp.navigon : "navigon://coordinate/Destination/%f/%f",
+        LocalideMapApp.transitApp : "transit://routes?q=%f,%f",
+        LocalideMapApp.waze : "waze://?ll=%f,%f",
+        LocalideMapApp.yandexNavigator : "yandexnavi://build_route_on_map?lat_to=%f&lon_to=%f"
     ]
 
-    private static func private_canOpenUrl(url: NSURL) -> Bool {
+    static func canOpenUrl(_ url: URL) -> Bool {
         return Localide.sharedManager.applicationProtocol.canOpenURL(url)
     }
-    private static func private_launchAppWithUrlString(urlString: String) -> Bool {
-        guard let launchUrl = NSURL(string: urlString) where self.private_canOpenUrl(launchUrl) else { return false }
+
+    static func launchAppWithUrlString(_ urlString: String) -> Bool {
+        guard let launchUrl = URL(string: urlString) , canOpenUrl(launchUrl) else { return false }
         return Localide.sharedManager.applicationProtocol.openURL(launchUrl)
     }
 }

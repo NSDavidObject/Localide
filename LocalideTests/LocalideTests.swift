@@ -12,7 +12,7 @@ import CoreLocation
 
 class LocalideTests: XCTestCase {
 
-    private let applicationProtocolTest = UIApplicationProtocolTest()
+    fileprivate let applicationProtocolTest = UIApplicationProtocolTest()
     let locationZero = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
 
     override func setUp() {
@@ -29,33 +29,35 @@ class LocalideTests: XCTestCase {
 
         let location = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
         XCTAssertTrue(Localide.sharedManager.launchNativeAppleMapsAppForDirections(toLocation: location))
-        XCTAssertEqual(applicationProtocolTest.lastOpenedUrl, private_testDidLaunchApplication(.AppleMaps))
+        XCTAssertEqual(applicationProtocolTest.lastOpenedUrl, testDidLaunchApplication(.appleMaps))
     }
 
     func testPromptForDirectionsNoOptions() {
 
         Localide.sharedManager.promptForDirections(toLocation: locationZero, usingASubsetOfApps: []) { (usedApp, fromMemory, openedLinkSuccessfully) in
-            XCTAssertEqual(LocalideMapApp.AppleMaps, usedApp)
+            XCTAssertEqual(LocalideMapApp.appleMaps, usedApp)
             XCTAssertFalse(fromMemory)
             XCTAssertTrue(openedLinkSuccessfully)
-            XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.private_testDidLaunchApplication(usedApp))
+            XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.testDidLaunchApplication(usedApp))
         }
 
-        XCTAssertNil(private_currentAlertActions())
-        XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.private_testDidLaunchApplication(.AppleMaps))
+
+
+        XCTAssertNil(currentAlertActions())
+        XCTAssertEqual(applicationProtocolTest.lastOpenedUrl, testDidLaunchApplication(.appleMaps))
     }
 
     func testPromptForDirectionsOneOption() {
 
-        Localide.sharedManager.promptForDirections(toLocation: locationZero, usingASubsetOfApps: [.GoogleMaps]) { (usedApp, fromMemory, openedLinkSuccessfully) in
-            XCTAssertEqual(LocalideMapApp.GoogleMaps, usedApp)
+        Localide.sharedManager.promptForDirections(toLocation: locationZero, usingASubsetOfApps: [.googleMaps]) { (usedApp, fromMemory, openedLinkSuccessfully) in
+            XCTAssertEqual(LocalideMapApp.googleMaps, usedApp)
             XCTAssertFalse(fromMemory)
             XCTAssertTrue(openedLinkSuccessfully)
-            XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.private_testDidLaunchApplication(usedApp))
+            XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.testDidLaunchApplication(usedApp))
         }
 
-        XCTAssertNil(private_currentAlertActions())
-        XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.private_testDidLaunchApplication(.GoogleMaps))
+        XCTAssertNil(currentAlertActions())
+        XCTAssertEqual(applicationProtocolTest.lastOpenedUrl, testDidLaunchApplication(.googleMaps))
     }
 
     func testPromptForDirectionsMutipleOptions() {
@@ -65,16 +67,16 @@ class LocalideTests: XCTestCase {
             XCTAssertEqual(lastSelectedApp, usedApp)
             XCTAssertFalse(fromMemory)
             XCTAssertTrue(openedLinkSuccessfully)
-            XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.private_testDidLaunchApplication(usedApp))
+            XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.testDidLaunchApplication(usedApp))
         }
 
-        let actions = private_currentAlertActions()!
+        let actions = currentAlertActions()!
         for action in actions {
             lastSelectedApp = action.mockMapApp
             action.mockHandler!(action)
         }
 
-        private_resetViewHierarchy()
+        resetViewHierarchy()
     }
 
     func testPromptForDirectionsWithMemory() {
@@ -85,28 +87,28 @@ class LocalideTests: XCTestCase {
             XCTAssertEqual(lastSelectedApp, usedApp)
             XCTAssertFalse(fromMemory)
             XCTAssertTrue(openedLinkSuccessfully)
-            XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.private_testDidLaunchApplication(usedApp))
+            XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.testDidLaunchApplication(usedApp))
         }
 
-        let actions = private_currentAlertActions()
+        let actions = currentAlertActions()
         XCTAssertNotNil(actions)
         for action in actions! {
             lastSelectedApp = action.mockMapApp
             action.mockHandler!(action)
         }
 
-        private_resetViewHierarchy()
+        resetViewHierarchy()
 
         let appFromMemory: LocalideMapApp = actions!.last!.mockMapApp!
         Localide.sharedManager.promptForDirections(toLocation: locationZero, rememberPreference: true) { (usedApp, fromMemory, openedLinkSuccessfully) in
             XCTAssertEqual(appFromMemory, usedApp)
             XCTAssertTrue(fromMemory)
             XCTAssertTrue(openedLinkSuccessfully)
-            XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.private_testDidLaunchApplication(usedApp))
+            XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.testDidLaunchApplication(usedApp))
         }
 
-        XCTAssertNil(private_currentAlertActions())
-        XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.private_testDidLaunchApplication(appFromMemory))
+        XCTAssertNil(currentAlertActions())
+        XCTAssertEqual(applicationProtocolTest.lastOpenedUrl, testDidLaunchApplication(appFromMemory))
     }
 
     func testPromptForDirectionsWithMemoryAndChangeOfAvailability() {
@@ -117,26 +119,26 @@ class LocalideTests: XCTestCase {
             XCTAssertEqual(lastSelectedApp, usedApp)
             XCTAssertFalse(fromMemory)
             XCTAssertTrue(openedLinkSuccessfully)
-            XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.private_testDidLaunchApplication(usedApp))
+            XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.testDidLaunchApplication(usedApp))
         }
 
-        let actions = private_currentAlertActions()
+        let actions = currentAlertActions()
         XCTAssertNotNil(actions)
         for action in actions! {
             lastSelectedApp = action.mockMapApp
             action.mockHandler!(action)
         }
 
-        private_resetViewHierarchy()
+        resetViewHierarchy()
 
-        Localide.sharedManager.promptForDirections(toLocation: locationZero, rememberPreference: true, usingASubsetOfApps: [.GoogleMaps, .Waze]) { (usedApp, fromMemory, openedLinkSuccessfully) in
+        Localide.sharedManager.promptForDirections(toLocation: locationZero, rememberPreference: true, usingASubsetOfApps: [.googleMaps, .waze]) { (usedApp, fromMemory, openedLinkSuccessfully) in
             XCTAssertEqual(lastSelectedApp, usedApp)
             XCTAssertFalse(fromMemory)
             XCTAssertTrue(openedLinkSuccessfully)
-            XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.private_testDidLaunchApplication(usedApp))
+            XCTAssertEqual(self.applicationProtocolTest.lastOpenedUrl, self.testDidLaunchApplication(usedApp))
         }
 
-        let actions2 = private_currentAlertActions()!
+        let actions2 = currentAlertActions()!
         for action in actions2 {
             lastSelectedApp = action.mockMapApp
             action.mockHandler!(action)
@@ -146,10 +148,10 @@ class LocalideTests: XCTestCase {
     }
 
     // MARK: Private Helpers
-    func private_resetViewHierarchy() {
-        UIApplication.sharedApplication().keyWindow?.rootViewController = UIViewController()
+    func resetViewHierarchy() {
+        UIApplication.shared.keyWindow?.rootViewController = UIViewController()
     }
-    func private_currentAlertActions() -> [LocalideAlertAction]? {
+    func currentAlertActions() -> [LocalideAlertAction]? {
         guard let alertController = UIApplication.topViewController() as? UIAlertController else { return nil }
         let actions = alertController.actions
         let localideActions = actions.filter { alertAction -> Bool in
@@ -157,7 +159,7 @@ class LocalideTests: XCTestCase {
         }
         return localideActions as? [LocalideAlertAction]
     }
-    func private_testDidLaunchApplication(app: LocalideMapApp, toLocation location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)) -> String {
+    func testDidLaunchApplication(_ app: LocalideMapApp, toLocation location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)) -> String {
         return String(format: LocalideMapAppTestHelper.urlFormats[app]!, arguments: [location.latitude, location.longitude])
     }
 }
@@ -165,31 +167,31 @@ class LocalideTests: XCTestCase {
 // MARK: - Private Helpers
 private class LocalideMapAppTestHelper {
     static let prefixes: [LocalideMapApp: String] = [
-        LocalideMapApp.AppleMaps : "http://maps.apple.com/",
-        LocalideMapApp.Citymapper : "citymapper://",
-        LocalideMapApp.GoogleMaps : "comgooglemaps://",
-        LocalideMapApp.Navigon : "navigon://",
-        LocalideMapApp.TransitApp : "transit://",
-        LocalideMapApp.Waze : "waze://",
-        LocalideMapApp.YandexNavigator : "yandexnavi://"
+        LocalideMapApp.appleMaps : "http://maps.apple.com/",
+        LocalideMapApp.citymapper : "citymapper://",
+        LocalideMapApp.googleMaps : "comgooglemaps://",
+        LocalideMapApp.navigon : "navigon://",
+        LocalideMapApp.transitApp : "transit://",
+        LocalideMapApp.waze : "waze://",
+        LocalideMapApp.yandexNavigator : "yandexnavi://"
     ]
     static let urlFormats: [LocalideMapApp: String] = [
-        LocalideMapApp.AppleMaps : "http://maps.apple.com/?daddr=%f,%f",
-        LocalideMapApp.Citymapper : "citymapper://endcoord=%f,%f",
-        LocalideMapApp.GoogleMaps : "comgooglemaps://?daddr=%f,%f",
-        LocalideMapApp.Navigon : "navigon://coordinate/Destination/%f/%f",
-        LocalideMapApp.TransitApp : "transit://routes?q=%f,%f",
-        LocalideMapApp.Waze : "waze://?ll=%f,%f",
-        LocalideMapApp.YandexNavigator : "yandexnavi://build_route_on_map?lat_to=%f&lon_to=%f"
+        LocalideMapApp.appleMaps : "http://maps.apple.com/?daddr=%f,%f",
+        LocalideMapApp.citymapper : "citymapper://endcoord=%f,%f",
+        LocalideMapApp.googleMaps : "comgooglemaps://?daddr=%f,%f",
+        LocalideMapApp.navigon : "navigon://coordinate/Destination/%f/%f",
+        LocalideMapApp.transitApp : "transit://routes?q=%f,%f",
+        LocalideMapApp.waze : "waze://?ll=%f,%f",
+        LocalideMapApp.yandexNavigator : "yandexnavi://build_route_on_map?lat_to=%f&lon_to=%f"
     ]
 }
 
 private class UIApplicationProtocolTest: UIApplicationProtocol {
     var lastOpenedUrl: String = ""
-    func canOpenURL(url: NSURL) -> Bool {
+    func canOpenURL(_ url: URL) -> Bool {
         return true
     }
-    func openURL(url: NSURL) -> Bool {
+    func openURL(_ url: URL) -> Bool {
         lastOpenedUrl = url.absoluteString
         return canOpenURL(url)
     }

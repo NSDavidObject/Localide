@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "Localide"
-  s.version      = "1.1.2"
+  s.version      = "2.0.0"
   s.summary      = "Localide is an easy helper to offer users a personalized experience by using their favorite installed apps for directions."
 
   s.homepage     = "https://github.com/davoda/Localide"
