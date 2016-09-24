@@ -11,7 +11,7 @@
 
 Add the [Localide Classes'](https://github.com/davoda/Localide/tree/master/Classes) files to your project, or use CocoaPods:
 ```sh
-pod 'Localide', '~> 1.1'
+pod 'Localide', '~> 2.0'
 ```
 
 ### Usage
