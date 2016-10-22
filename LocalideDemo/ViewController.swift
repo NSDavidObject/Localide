@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Localide
 
 class ViewController: UIViewController {
 
@@ -70,7 +71,7 @@ class ViewController: UIViewController {
 
         } else {
             
-            let app = LocalideMapApp.AllMapApps[self.appChoiceSegmentControl.selectedSegmentIndex]
+            let app = LocalideMapApp.allMapApps()[self.appChoiceSegmentControl.selectedSegmentIndex]
             if app.canOpenApp() {
                 app.launchAppWithDirections(toLocation: location)
             } else {
@@ -86,7 +87,7 @@ class ViewController: UIViewController {
 extension ViewController {
     func configureConfigurationControls() {
         self.appChoiceSegmentControl.removeAllSegments()
-        for (idx, app) in LocalideMapApp.AllMapApps.enumerated() {
+        for (idx, app) in LocalideMapApp.allMapApps().enumerated() {
             self.appChoiceSegmentControl.insertSegment(withTitle: app.appName.components(separatedBy: " ")[0], at: idx, animated: true)
         }
         self.appChoiceSegmentControl.selectedSegmentIndex = 0
@@ -102,5 +103,11 @@ extension ViewController {
     }
     @IBAction func didChangeRememberSwitchValue(_ sender: AnyObject) {
 //        guard let switchControl = sender as? UISwitch else { return }
+    }
+}
+
+extension LocalideMapApp {
+    static func allMapApps() -> [LocalideMapApp] {
+        return [appleMaps, citymapper, googleMaps, navigon, transitApp, waze, yandexNavigator]
     }
 }
