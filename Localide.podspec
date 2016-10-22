@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "Localide"
-  s.version      = "2.0.0"
+  s.version      = "2.1.0"
   s.summary      = "Localide is an easy helper to offer users a personalized experience by using their favorite installed apps for directions."
 
   s.homepage     = "https://github.com/davoda/Localide"
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "8.0"
 
   s.source       = { :git => "https://github.com/davoda/Localide.git", :tag => s.version.to_s }
-  s.source_files  = "Classes", "Classes/*"
+  s.source_files  = "Localide/Classes/*"
 
   s.requires_arc = true
 
