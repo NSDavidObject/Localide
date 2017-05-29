@@ -1,5 +1,5 @@
 # Localide
-####Localide is an easy helper to offer users a personalized experience by using their favorite installed apps for directions.
+#### Localide is an easy helper to offer users a personalized experience by using their favorite installed apps for directions.
 ![Localide Screenshot](http://s33.postimg.org/iob7lrl0v/Simulator_Screen_Shot_Jun_4_2016_12_38_30_PM.png)
 
 ### Requierments
