@@ -56,9 +56,12 @@ public final class Localide {
      - parameter location: Latitude & Longitude of the direction's to location
      - parameter rememberPreference: Whether to remember the user's preference for future uses or not. (note: preference is reset whenever the list of available apps change. ex. user installs a new map app.)
      - parameter usingASubsetOfApps: Handpicked subset of apps to use, use this parameter if you'd like to exclude some apps. (note: If none of which are available, Apple Maps will be fell back on.)
+     - parameter title: Title string for the action sheet with the list of the apps
+     - parameter message: Message string for the action sheet with the list of the apps
+     - parameter cancelActionTitle: Title string for the Cancel action on the action sheet
      - parameter completion: Called after attempting to launch app whether it being from previous preference or currently selected preference.
      */
-    public func promptForDirections(toLocation location: CLLocationCoordinate2D, rememberPreference remember: Bool = false, usingASubsetOfApps apps: [LocalideMapApp]? = nil, onCompletion completion: LocalideUsageCompletion?) {
+    public func promptForDirections(toLocation location: CLLocationCoordinate2D, rememberPreference remember: Bool = false, usingASubsetOfApps apps: [LocalideMapApp]? = nil, title: String = "Navigation", message: String = "Which app would you like to use for directions?", cancelActionTitle: String = "Cancel", onCompletion completion: LocalideUsageCompletion?) {
         
         var appChoices = self.availableMapApps
         if let apps = apps {
@@ -74,7 +77,7 @@ public final class Localide {
             return
         }
 
-        self.discoverUserPreferenceOfMapApps("Navigation", message: "Which app would you like to use for directions?", apps: appChoices) { app in
+        self.discoverUserPreferenceOfMapApps(title, message: message, cancelActionTitle: cancelActionTitle, apps: appChoices) { app in
             if remember {
                 UserDefaults.setPreferredMapApp(app, fromMapAppChoices: appChoices)
             }
@@ -97,7 +100,7 @@ extension Localide {
         completion?(app, fromMemory, didLaunchMapApp)
     }
 
-    fileprivate func discoverUserPreferenceOfMapApps(_ title: String, message: String, apps: [LocalideMapApp], completion: @escaping (LocalideMapApp) -> Void) {
+    fileprivate func discoverUserPreferenceOfMapApps(_ title: String, message: String, cancelActionTitle: String, apps: [LocalideMapApp], completion: @escaping (LocalideMapApp) -> Void) {
         guard apps.count > 1 else {
             if let app = apps.first {
                 completion(app)
@@ -113,7 +116,7 @@ extension Localide {
             alertController.addAction(alertAction)
         }
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: cancelActionTitle, style: UIAlertActionStyle.cancel, handler: nil)
         alertController.addAction(cancelAction)
 
         UIApplication.topViewController()?.present(alertController, animated: true, completion: nil)
